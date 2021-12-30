@@ -14,6 +14,11 @@ export const TransactionsTable = ({ dataSource }) =>  {
             key: "type"
         },
         {
+            title: "Category",
+            dataIndex: "category",
+            key: "category"
+        },
+        {
             title: "Description",
             dataIndex: "description",
             key: "description"
@@ -26,6 +31,6 @@ export const TransactionsTable = ({ dataSource }) =>  {
     ]
 
     return <div>
-        <Table dataSource={dataSource} columns={columns}/>
+        <Table size={"middle"} dataSource={dataSource} columns={columns}/>
     </div>;
 }

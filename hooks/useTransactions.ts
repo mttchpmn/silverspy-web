@@ -1,9 +1,9 @@
 import useSwr from "swr";
 import axios from "axios";
 
-export const useTransactions = (from: string, to: string) =>
+export const useTransactions = (from?: string, to?: string) =>
 {
-    const {data, error} = useSwr(`/api/transactions?from=${from}&to=${to}`, axios);
+    const {data, error} = useSwr(`/api/transactions`, axios);
 
     return {
         transactionData: data?.data,
