@@ -81,7 +81,7 @@ const TransactionsPage: NextPage = () => {
                     <Title level={3}>Categories</Title>
                     <Descriptions bordered size={"small"}>
                         {categoryTotals.map((c: CategoryTotal) => <Descriptions.Item key={c.name}
-                                                                                     label={c.name}>{c.total}</Descriptions.Item>)}
+                                                                                     label={c.name}>${c.total}</Descriptions.Item>)}
                     </Descriptions>
                 </div>
 
