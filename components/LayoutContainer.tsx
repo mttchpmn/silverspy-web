@@ -6,6 +6,7 @@ import {
     FileOutlined,
     TeamOutlined,
     UserOutlined,
+    AreaChartOutlined, BankOutlined, DollarOutlined,
 } from '@ant-design/icons';
 
 const {Title} = Typography;
@@ -24,23 +25,14 @@ const SiderDemo = ({children}) => {
                 </div>
                 <Divider />
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-                    <Menu.Item key="1" icon={<PieChartOutlined/>}>
-                        Option 1
+                    <Menu.Item key="1" icon={<AreaChartOutlined/>}>
+                        Dashboard
                     </Menu.Item>
-                    <Menu.Item key="2" icon={<DesktopOutlined/>}>
-                        Option 2
+                    <Menu.Item key="2" icon={<BankOutlined/>}>
+                        Payments
                     </Menu.Item>
-                    <SubMenu key="sub1" icon={<UserOutlined/>} title="User">
-                        <Menu.Item key="3">Tom</Menu.Item>
-                        <Menu.Item key="4">Bill</Menu.Item>
-                        <Menu.Item key="5">Alex</Menu.Item>
-                    </SubMenu>
-                    <SubMenu key="sub2" icon={<TeamOutlined/>} title="Team">
-                        <Menu.Item key="6">Team 1</Menu.Item>
-                        <Menu.Item key="8">Team 2</Menu.Item>
-                    </SubMenu>
-                    <Menu.Item key="9" icon={<FileOutlined/>}>
-                        Files
+                    <Menu.Item key="3" icon={<DollarOutlined/>}>
+                        Transactions
                     </Menu.Item>
                 </Menu>
             </Sider>
