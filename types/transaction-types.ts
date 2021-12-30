@@ -7,3 +7,16 @@ export type Transaction = {
     description: string;
     amount: number;
 }
+
+export type CategoryTotal = {
+    name: string;
+    total: number;
+}
+
+export type TransactionData = {
+    transactions: Transaction[];
+    categoryTotals: CategoryTotal[];
+    totalIncoming: number;
+    totalOutgoing: number;
+    netPosition: number;
+}

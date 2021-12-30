@@ -26,7 +26,8 @@ export const TransactionsTable = ({ dataSource }) =>  {
         {
             title: "Amount",
             dataIndex: "amount",
-            key: "amount"
+            key: "amount",
+            render: (x: number) => <p>${x}</p>
         },
     ]
 
