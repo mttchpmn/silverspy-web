@@ -1,14 +1,13 @@
 import {NextPage} from "next";
 import LayoutContainer from "../components/LayoutContainer";
-import {Button, Col, DatePicker, Descriptions, Modal, Row, Space, Statistic, Typography} from "antd";
+import {Button, DatePicker, Descriptions, Space, Statistic, Typography} from "antd";
 import {TransactionsTable} from "../components/TransactionsTable";
-import useSwr from "swr";
-import axios from "axios";
 import {useTransactions} from "../hooks/useTransactions";
 import {useState} from "react";
 import moment, {Moment} from "moment";
 import {CategoryTotal} from "../types/transaction-types";
 import {DownloadOutlined, UploadOutlined} from "@ant-design/icons";
+import {ImportTransactionModal} from "../components/ImportTransactionModal";
 
 const {Title, Text} = Typography;
 const {RangePicker} = DatePicker;
@@ -17,7 +16,7 @@ const TransactionsPage: NextPage = () => {
     const [fromDate, setFromDate] = useState<Moment>(moment()); // TODO - Default dates
     const [toDate, setToDate] = useState<Moment>(moment());
 
-    const [importModalVisible, setImportModalVisible] = useState<boolean>(false);
+    const [importModalVisible, setImportModalVisible] = useState<boolean>(true);
 
     const {
         transactionData,
@@ -52,11 +51,7 @@ const TransactionsPage: NextPage = () => {
                     {/* Import / Export buttons */}
                     <Space>
                         <Button icon={<UploadOutlined/>} onClick={() => setImportModalVisible(true)}>Import</Button>
-                        <Modal title={"Import Transactions"} visible={importModalVisible}
-                               onOk={() => setImportModalVisible(false)}
-                               onCancel={() => setImportModalVisible(false)}>
-                            <p>Hi there</p>
-                        </Modal>
+                        <ImportTransactionModal visible={importModalVisible} onOk={() => setImportModalVisible(false)}/>
                         <Button disabled icon={<DownloadOutlined/>}>Export</Button>
                     </Space>
                 </Space>
