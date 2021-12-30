@@ -1,25 +1,45 @@
 import {Button, message, Modal, Radio, Select, Space, Typography, Upload} from "antd";
 import {useState} from "react";
+import axios from "axios";
 
 const {Text} = Typography;
 const {Option} = Select;
 
 export function ImportTransactionModal(props: { visible: boolean, onOk: () => void }) {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [bank, setBank]= useState<string>("");
     const [fileContent, setFileContent] = useState<string>("");
+
+    const handleSubmit = () => {
+        setIsLoading(true);
+        axios.post("/api/import-transactions",
+            {
+                bank,
+                fileContent
+            })
+            .then(({data}) => {
+                console.log({data});
+                setIsLoading(false);
+                props.onOk();
+                message.success("Transactions imported successfully")
+            })
+    }
 
     return (
         <Modal title={"Import Transactions"}
                visible={props.visible}
                okText={"Import"}
-               onOk={props.onOk}
-               onCancel={props.onOk}>
+               onOk={() => handleSubmit()}
+               onCancel={props.onOk}
+               confirmLoading={isLoading}
+        >
 
             <Space direction={"vertical"} style={{width: "100%"}}>
 
                 <Space style={{width: "100%", justifyContent: "space-between"}}>
                     <Text>Select your bank</Text>
                     {/* TODO - Extract these into constants file*/}
-                    <Select defaultValue={"asb"} style={{width: 120}}>
+                    <Select onSelect={x => setBank("asb")} defaultValue={"asb"} style={{width: 120}}>
                         <Option value={"asb"}>ASB</Option>
                         <Option disabled value={"anz"}>ANZ</Option>
                         <Option disabled value={"bnz"}>BNZ</Option>
