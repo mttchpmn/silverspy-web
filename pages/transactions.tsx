@@ -1,6 +1,6 @@
 import {NextPage} from "next";
 import LayoutContainer from "../components/LayoutContainer";
-import {Col, DatePicker, Descriptions, Row, Space, Statistic, Typography} from "antd";
+import {Button, Col, DatePicker, Descriptions, Row, Space, Statistic, Typography} from "antd";
 import {TransactionsTable} from "../components/TransactionsTable";
 import useSwr from "swr";
 import axios from "axios";
@@ -8,6 +8,7 @@ import {useTransactions} from "../hooks/useTransactions";
 import {useState} from "react";
 import moment, {Moment} from "moment";
 import {CategoryTotal} from "../types/transaction-types";
+import {DownloadOutlined, UploadOutlined} from "@ant-design/icons";
 
 const {Title, Text} = Typography;
 const {RangePicker} = DatePicker;
@@ -35,17 +36,23 @@ const TransactionsPage: NextPage = () => {
 
             <Space direction={"vertical"} size={"large"} style={{width: "100%"}}>
 
-            {/* Transaction Date selection*/}
-            <div>
-                <RangePicker disabled format={"ddd, MMM do"} onChange={(range, x) => {
-                    const dates = Array.from(range!.values())
+                <Space style={{width: "100%", justifyContent: "space-between"}}>
+                {/* Transaction Date selection */}
+                    <RangePicker disabled format={"ddd, MMM do"} onChange={(range, x) => {
+                        const dates = Array.from(range!.values())
 
-                    setFromDate(dates[0]!);
-                    setToDate(dates[1]!);
+                        setFromDate(dates[0]!);
+                        setToDate(dates[1]!);
 
-                    console.log({fromDate, toDate})
-                }}/>
-            </div>
+                        console.log({fromDate, toDate})
+                    }}/>
+
+                    {/* Import / Export buttons */}
+                    <Space>
+                        <Button icon={<UploadOutlined/>}>Import</Button>
+                        <Button disabled icon={<DownloadOutlined/>}>Export</Button>
+                    </Space>
+                </Space>
 
                 {/* Transaction stats */}
                 <div>
