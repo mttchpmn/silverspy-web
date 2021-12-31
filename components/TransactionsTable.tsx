@@ -1,7 +1,7 @@
 import {Table} from "antd";
 
 // @ts-ignore
-export const TransactionsTable = ({ dataSource }) =>  {
+export const TransactionsTable = ({dataSource}) => {
     const columns = [
         {
             title: "Date",
@@ -32,6 +32,13 @@ export const TransactionsTable = ({ dataSource }) =>  {
     ]
 
     return <div>
-        <Table size={"middle"} dataSource={dataSource} columns={columns}/>
-    </div>;
+        <Table
+            size={"small"}
+            dataSource={dataSource}
+            columns={columns}
+            expandable={{
+                expandedRowRender: record => <p>More data</p>
+            }}
+        />
+    </div>
 }
