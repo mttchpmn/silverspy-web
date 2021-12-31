@@ -1,5 +1,5 @@
 import {NextPage} from "next";
-import LayoutContainer from "../components/LayoutContainer";
+import {PageContainer} from "../components/PageContainer";
 import {Button, DatePicker, Descriptions, Space, Statistic, Typography} from "antd";
 import {TransactionsTable} from "../components/TransactionsTable";
 import {useTransactions} from "../hooks/useTransactions";
@@ -16,7 +16,7 @@ const TransactionsPage: NextPage = () => {
     const [fromDate, setFromDate] = useState<Moment>(moment()); // TODO - Default dates
     const [toDate, setToDate] = useState<Moment>(moment());
 
-    const [importModalVisible, setImportModalVisible] = useState<boolean>(true);
+    const [importModalVisible, setImportModalVisible] = useState<boolean>(false);
 
     const {
         transactionData,
@@ -25,15 +25,15 @@ const TransactionsPage: NextPage = () => {
     } = useTransactions(fromDate.toISOString(), toDate.toISOString())
 
     if (hasError) return <div>ERROR</div>
-    if (isLoading) return <LayoutContainer>Loading...</LayoutContainer>
+    if (isLoading) return <PageContainer title={""}>Loading...</PageContainer>
 
     const {transactions, categoryTotals, totalIncoming, totalOutgoing, netPosition} = transactionData;
 
     console.log({categoryTotals})
 
     return (
-        <LayoutContainer>
-            <Title level={2}>Transactions</Title>
+        <PageContainer title={"Transactions"}>
+            {/*<Title level={2}>Transactions</Title>*/}
 
             <Space direction={"vertical"} size={"large"} style={{width: "100%"}}>
 
@@ -101,7 +101,7 @@ const TransactionsPage: NextPage = () => {
                 </div>
 
             </Space>
-        </LayoutContainer>
+        </PageContainer>
     )
 }
 
