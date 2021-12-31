@@ -14,7 +14,7 @@ const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
 
 // @ts-ignore
-const SiderDemo = ({children}) => {
+export const PageContainer = ({children}) => {
     const [collapsed, setCollapsed] = useState(false);
 
     return (
@@ -45,4 +45,3 @@ const SiderDemo = ({children}) => {
         </Layout>
     );
 }
-export default SiderDemo

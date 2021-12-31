@@ -1,6 +1,6 @@
 import {NextPage} from "next";
 import {Button, Typography} from "antd";
-import LayoutContainer from "../components/LayoutContainer";
+import LayoutContainer from "../components/PageContainer";
 
 const {Title, Text} = Typography
 
