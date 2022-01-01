@@ -39,7 +39,30 @@ const TransactionsPage: NextPage = () => {
 
     console.log({categoryTotals})
 
-    const dateSelectionOptions = ["Period", "Month", "Week", "Day", "Custom"];
+    const dateSelectionOptions = [
+        {
+            label: "Month",
+            value: "month"
+        },
+        {
+            label: "Week",
+            value: "week"
+        },
+        {
+            label: "Day",
+            value: "day"
+        },
+        {
+            label: "Period",
+            value: "period",
+            disabled: true
+        },
+        {
+            label: "Custom",
+            value: "custom",
+            disabled: true
+        },
+    ];
 
     return (
         <PageContainer title={"Transactions"}>
@@ -50,8 +73,9 @@ const TransactionsPage: NextPage = () => {
                 <Space style={{width: "100%", justifyContent: "space-between"}}>
                     {/* Transaction Date selection */}
                     <Space>
-                        <Radio.Group defaultValue={"Period"} onChange={e => setDateValue(e.target.value)} options={dateSelectionOptions} optionType={"button"} buttonStyle={"solid"}/>
-                        { dateValue == "Custom" &&
+                        <Radio.Group defaultValue={"Period"} onChange={e => setDateValue(e.target.value)}
+                                     options={dateSelectionOptions} optionType={"button"} buttonStyle={"solid"}/>
+                        {dateValue == "custom" &&
                             <RangePicker disabled format={"ddd, MMM do"} onChange={(range, x) => {
                                 const dates = Array.from(range!.values())
 
@@ -76,12 +100,12 @@ const TransactionsPage: NextPage = () => {
                     <Space size={"large"} style={{width: "100%", justifyContent: "center"}}>
                         <Space size={150} style={{padding: "2rem", backgroundColor: "#fff"}}>
 
-                        <Statistic title={"Total Incoming"} value={"$" + totalIncoming} prefix={<RiseOutlined />}
-                                   valueStyle={{color: "green"}}/>
-                        <Statistic title={"Total Outgoing"} value={"$" + totalOutgoing} prefix={<FallOutlined />}
-                                   valueStyle={{color: "red"}}/>
-                        <Statistic title={"Net Position"} value={"$" + netPosition} prefix={<StockOutlined />}
-                                   valueStyle={{color: "green"}}/>
+                            <Statistic title={"Total Incoming"} value={"$" + totalIncoming} prefix={<RiseOutlined/>}
+                                       valueStyle={{color: "green"}}/>
+                            <Statistic title={"Total Outgoing"} value={"$" + totalOutgoing} prefix={<FallOutlined/>}
+                                       valueStyle={{color: "red"}}/>
+                            <Statistic title={"Net Position"} value={"$" + netPosition} prefix={<StockOutlined/>}
+                                       valueStyle={{color: "green"}}/>
                         </Space>
                     </Space>
                 </div>
