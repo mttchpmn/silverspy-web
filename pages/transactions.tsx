@@ -6,7 +6,14 @@ import {useTransactions} from "../hooks/useTransactions";
 import {useState} from "react";
 import moment, {Moment} from "moment";
 import {CategoryTotal} from "../types/transaction-types";
-import {DownloadOutlined, UploadOutlined} from "@ant-design/icons";
+import {
+    DownloadOutlined,
+    FallOutlined,
+    FundOutlined,
+    RiseOutlined,
+    StockOutlined,
+    UploadOutlined
+} from "@ant-design/icons";
 import {ImportTransactionModal} from "../components/ImportTransactionModal";
 
 const {Title, Text} = Typography;
@@ -67,12 +74,15 @@ const TransactionsPage: NextPage = () => {
                 {/* Transaction stats */}
                 <div>
                     <Space size={"large"} style={{width: "100%", justifyContent: "center"}}>
-                        <Statistic title={"Total Incoming"} value={totalIncoming} prefix={"$"}
+                        <Space size={150} style={{padding: "2rem", backgroundColor: "#fff"}}>
+
+                        <Statistic title={"Total Incoming"} value={"$" + totalIncoming} prefix={<RiseOutlined />}
                                    valueStyle={{color: "green"}}/>
-                        <Statistic title={"Total Outgoing"} value={totalOutgoing} prefix={"$"}
+                        <Statistic title={"Total Outgoing"} value={"$" + totalOutgoing} prefix={<FallOutlined />}
                                    valueStyle={{color: "red"}}/>
-                        <Statistic title={"Net Position"} value={netPosition} prefix={"$"}
+                        <Statistic title={"Net Position"} value={"$" + netPosition} prefix={<StockOutlined />}
                                    valueStyle={{color: "green"}}/>
+                        </Space>
                     </Space>
                 </div>
 
