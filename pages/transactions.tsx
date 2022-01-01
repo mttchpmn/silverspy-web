@@ -1,6 +1,6 @@
 import {NextPage} from "next";
 import {PageContainer} from "../components/PageContainer";
-import {Button, DatePicker, Descriptions, Space, Statistic, Typography} from "antd";
+import {Button, DatePicker, Descriptions, Radio, Space, Statistic, Typography} from "antd";
 import {TransactionsTable} from "../components/TransactionsTable";
 import {useTransactions} from "../hooks/useTransactions";
 import {useState} from "react";
@@ -15,6 +15,7 @@ const {RangePicker} = DatePicker;
 const TransactionsPage: NextPage = () => {
     const [fromDate, setFromDate] = useState<Moment>(moment()); // TODO - Default dates
     const [toDate, setToDate] = useState<Moment>(moment());
+    const [dateValue, setDateValue] = useState<string>("Period")
 
     const [importModalVisible, setImportModalVisible] = useState<boolean>(false);
 
@@ -31,6 +32,8 @@ const TransactionsPage: NextPage = () => {
 
     console.log({categoryTotals})
 
+    const dateSelectionOptions = ["Period", "Month", "Week", "Day", "Custom"];
+
     return (
         <PageContainer title={"Transactions"}>
             {/*<Title level={2}>Transactions</Title>*/}
@@ -39,14 +42,19 @@ const TransactionsPage: NextPage = () => {
 
                 <Space style={{width: "100%", justifyContent: "space-between"}}>
                     {/* Transaction Date selection */}
-                    <RangePicker disabled format={"ddd, MMM do"} onChange={(range, x) => {
-                        const dates = Array.from(range!.values())
+                    <Space>
+                        <Radio.Group defaultValue={"Period"} onChange={e => setDateValue(e.target.value)} options={dateSelectionOptions} optionType={"button"} buttonStyle={"solid"}/>
+                        { dateValue == "Custom" &&
+                            <RangePicker disabled format={"ddd, MMM do"} onChange={(range, x) => {
+                                const dates = Array.from(range!.values())
 
-                        setFromDate(dates[0]!);
-                        setToDate(dates[1]!);
+                                setFromDate(dates[0]!);
+                                setToDate(dates[1]!);
 
-                        console.log({fromDate, toDate})
-                    }}/>
+                                console.log({fromDate, toDate})
+                            }}/>
+                        }
+                    </Space>
 
                     {/* Import / Export buttons */}
                     <Space>
