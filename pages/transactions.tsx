@@ -15,6 +15,7 @@ import {
     UploadOutlined
 } from "@ant-design/icons";
 import {ImportTransactionModal} from "../components/ImportTransactionModal";
+import {withPageAuthRequired} from "@auth0/nextjs-auth0";
 
 const {Title, Text} = Typography;
 const {RangePicker} = DatePicker;
@@ -146,5 +147,7 @@ const TransactionsPage: NextPage = () => {
         </PageContainer>
     )
 }
+
+export const getServerSideProps = withPageAuthRequired();
 
 export default TransactionsPage;
