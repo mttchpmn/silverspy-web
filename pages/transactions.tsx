@@ -105,7 +105,7 @@ const TransactionsPage: NextPage = () => {
 
                 {/* Transaction Categories */}
                 <div>
-                    <Title level={3}>Categories</Title>
+                    <Title level={3}>Category Totals</Title>
                     <Descriptions bordered size={"small"}>
                         {categoryTotals.map((c: CategoryTotal) => <Descriptions.Item key={c.name}
                                                                                      label={c.name}>${c.total}</Descriptions.Item>)}
