@@ -8,14 +8,12 @@ export default function handler(
 ) {
   const {from, to} = req.query;
 
-  console.log({from, to})
-
   const tableData = [
     {
       id: 0,
-      processedDate: "",
+      processedDate: "2021-12-12",
       category: "Groceries",
-      reference: "",
+      reference: "NEWWORLDLTD",
       key: '1',
       date: "2021-12-19",
       type: "DEBIT",
