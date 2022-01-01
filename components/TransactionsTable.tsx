@@ -2,6 +2,7 @@ import {SetStateAction, useState} from "react";
 import {Form, Input, InputNumber, message, Table} from "antd";
 import {DeliveredProcedureOutlined, EditOutlined} from "@ant-design/icons";
 import moment from "moment";
+import {Transaction} from "../types/transaction-types";
 
 type EditableCellProps = {
     editing: any;
@@ -49,7 +50,7 @@ const EditableCell = ({
 };
 
 type EditableTableProps = {
-    inputData: any;
+    inputData: Transaction[];
     onRowUpdate: (record: any) => Promise<boolean>
 }
 
@@ -158,7 +159,7 @@ const EditableTable = ({inputData, onRowUpdate}: EditableTableProps) => {
                     columns={mergedColumns}
                     rowClassName="editable-row"
                     expandable={{
-                        expandedRowRender: record => <p>More data</p>
+                        expandedRowRender: record => <p>Processed Date: {record.processedDate}; Reference: {record.reference}</p>
                     }}
                     pagination={{
                         onChange: cancel,
@@ -171,13 +172,13 @@ const EditableTable = ({inputData, onRowUpdate}: EditableTableProps) => {
 
 
 type TransactionTableProps = {
-    dataSource: any;
+    transactionData: Transaction[];
     onRowUpdate: (row: any) => Promise<boolean>
 }
 
-export const TransactionsTable = ({dataSource, onRowUpdate}: TransactionTableProps) => {
+export const TransactionsTable = ({transactionData, onRowUpdate}: TransactionTableProps) => {
 
     return <div>
-        <EditableTable inputData={dataSource} onRowUpdate={onRowUpdate}/>
+        <EditableTable inputData={transactionData} onRowUpdate={onRowUpdate}/>
     </div>
 }

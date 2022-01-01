@@ -97,7 +97,7 @@ const TransactionsPage: NextPage = () => {
                 {/* Transactions Table */}
                 <div>
                     <Title level={3}>Transactions</Title>
-                    <TransactionsTable dataSource={transactions} onRowUpdate={() => Promise.resolve(true)}/>
+                    <TransactionsTable transactionData={transactions} onRowUpdate={() => Promise.resolve(true)}/>
                 </div>
 
             </Space>
