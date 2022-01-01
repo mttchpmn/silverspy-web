@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {Layout, Menu, Breadcrumb, Typography, Divider, PageHeader, Button} from 'antd';
+import {Layout, Menu, Breadcrumb, Typography, Divider, PageHeader, Button, Space} from 'antd';
 import {
     DesktopOutlined,
     PieChartOutlined,
     FileOutlined,
     TeamOutlined,
     UserOutlined,
-    AreaChartOutlined, BankOutlined, DollarOutlined, SettingOutlined,
+    AreaChartOutlined, BankOutlined, DollarOutlined, SettingOutlined, LogoutOutlined,
 } from '@ant-design/icons';
 import Link from 'next/link';
 import {useRouter} from "next/router";
@@ -30,8 +30,8 @@ export const PageContainer = ({title, children}) => {
                 </div>
                 <Divider/>
                 <Menu theme="dark" defaultSelectedKeys={[router.pathname]} mode="inline">
-                    <Menu.Item key="/" icon={<AreaChartOutlined/>}>
-                        <Link href={"/"}>
+                    <Menu.Item key="/dashboard" icon={<AreaChartOutlined/>}>
+                        <Link href={"/dashboard"}>
                             <a>Dashboard</a>
                         </Link>
                     </Menu.Item>
@@ -51,10 +51,14 @@ export const PageContainer = ({title, children}) => {
                         </Link>
                     </Menu.Item>
                 </Menu>
-                <Button><a href={"/api/auth/logout"}>Log Out</a></Button>
             </Sider>
             <Layout className="site-layout">
                 {/*<Header style={{backgroundColor: "#f0f2f5"}}><Title level={2}>{title}</Title></Header>*/}
+                <Header style={{backgroundColor: "#f0f2f5"}}>
+                    <Space style={{width: "100%", justifyContent: "flex-end"}}>
+                        <Button icon={<LogoutOutlined />} onClick={() => router.push("/api/auth/logout")}>Log Out</Button>
+                    </Space>
+                </Header>
                 <Content style={{margin: '2rem 1rem'}}>
                     <Title level={2}>{title}</Title>
                     {children}
