@@ -155,6 +155,7 @@ const EditableTable = ({inputData, onRowUpdate}: EditableTableProps) => {
                         },
                     }}
                     bordered
+                    size={"small"}
                     dataSource={data}
                     columns={mergedColumns}
                     rowClassName="editable-row"

@@ -1,12 +1,19 @@
 import {NextPage} from "next";
 import {PageContainer} from "../components/PageContainer";
-import {Button, DatePicker, Descriptions, Space, Statistic, Typography} from "antd";
+import {Button, DatePicker, Descriptions, Radio, Space, Statistic, Typography} from "antd";
 import {TransactionsTable} from "../components/TransactionsTable";
 import {useTransactions} from "../hooks/useTransactions";
 import {useState} from "react";
 import moment, {Moment} from "moment";
 import {CategoryTotal} from "../types/transaction-types";
-import {DownloadOutlined, UploadOutlined} from "@ant-design/icons";
+import {
+    DownloadOutlined,
+    FallOutlined,
+    FundOutlined,
+    RiseOutlined,
+    StockOutlined,
+    UploadOutlined
+} from "@ant-design/icons";
 import {ImportTransactionModal} from "../components/ImportTransactionModal";
 
 const {Title, Text} = Typography;
@@ -15,6 +22,7 @@ const {RangePicker} = DatePicker;
 const TransactionsPage: NextPage = () => {
     const [fromDate, setFromDate] = useState<Moment>(moment()); // TODO - Default dates
     const [toDate, setToDate] = useState<Moment>(moment());
+    const [dateValue, setDateValue] = useState<string>("Period")
 
     const [importModalVisible, setImportModalVisible] = useState<boolean>(false);
 
@@ -31,6 +39,31 @@ const TransactionsPage: NextPage = () => {
 
     console.log({categoryTotals})
 
+    const dateSelectionOptions = [
+        {
+            label: "Month",
+            value: "month"
+        },
+        {
+            label: "Week",
+            value: "week"
+        },
+        {
+            label: "Day",
+            value: "day"
+        },
+        {
+            label: "Period",
+            value: "period",
+            disabled: true
+        },
+        {
+            label: "Custom",
+            value: "custom",
+            disabled: true
+        },
+    ];
+
     return (
         <PageContainer title={"Transactions"}>
             {/*<Title level={2}>Transactions</Title>*/}
@@ -39,14 +72,20 @@ const TransactionsPage: NextPage = () => {
 
                 <Space style={{width: "100%", justifyContent: "space-between"}}>
                     {/* Transaction Date selection */}
-                    <RangePicker disabled format={"ddd, MMM do"} onChange={(range, x) => {
-                        const dates = Array.from(range!.values())
+                    <Space>
+                        <Radio.Group defaultValue={"Period"} onChange={e => setDateValue(e.target.value)}
+                                     options={dateSelectionOptions} optionType={"button"} buttonStyle={"solid"}/>
+                        {dateValue == "custom" &&
+                            <RangePicker disabled format={"ddd, MMM do"} onChange={(range, x) => {
+                                const dates = Array.from(range!.values())
 
-                        setFromDate(dates[0]!);
-                        setToDate(dates[1]!);
+                                setFromDate(dates[0]!);
+                                setToDate(dates[1]!);
 
-                        console.log({fromDate, toDate})
-                    }}/>
+                                console.log({fromDate, toDate})
+                            }}/>
+                        }
+                    </Space>
 
                     {/* Import / Export buttons */}
                     <Space>
@@ -59,12 +98,15 @@ const TransactionsPage: NextPage = () => {
                 {/* Transaction stats */}
                 <div>
                     <Space size={"large"} style={{width: "100%", justifyContent: "center"}}>
-                        <Statistic title={"Total Incoming"} value={totalIncoming} prefix={"$"}
-                                   valueStyle={{color: "green"}}/>
-                        <Statistic title={"Total Outgoing"} value={totalOutgoing} prefix={"$"}
-                                   valueStyle={{color: "red"}}/>
-                        <Statistic title={"Net Position"} value={netPosition} prefix={"$"}
-                                   valueStyle={{color: "green"}}/>
+                        <Space size={150} style={{padding: "2rem", backgroundColor: "#fff"}}>
+
+                            <Statistic title={"Total Incoming"} value={"$" + totalIncoming} prefix={<RiseOutlined/>}
+                                       valueStyle={{color: "green"}}/>
+                            <Statistic title={"Total Outgoing"} value={"$" + totalOutgoing} prefix={<FallOutlined/>}
+                                       valueStyle={{color: "red"}}/>
+                            <Statistic title={"Net Position"} value={"$" + netPosition} prefix={<StockOutlined/>}
+                                       valueStyle={{color: "green"}}/>
+                        </Space>
                     </Space>
                 </div>
 
@@ -87,7 +129,7 @@ const TransactionsPage: NextPage = () => {
 
                 {/* Transaction Categories */}
                 <div>
-                    <Title level={3}>Categories</Title>
+                    <Title level={3}>Category Totals</Title>
                     <Descriptions bordered size={"small"}>
                         {categoryTotals.map((c: CategoryTotal) => <Descriptions.Item key={c.name}
                                                                                      label={c.name}>${c.total}</Descriptions.Item>)}
