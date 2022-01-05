@@ -4,14 +4,9 @@ import {withPageAuthRequired} from "@auth0/nextjs-auth0";
 import {Button, Space} from "antd";
 import {CalendarOutlined, LogoutOutlined, UploadOutlined} from "@ant-design/icons";
 import {Stats} from "../components/Stats";
-
-function Categories() {
-    return null;
-}
-
-function PaymentsTable() {
-    return null;
-}
+import {Categories} from "../components/Categories";
+import {PeriodSelector} from "../components/PeriodSelector";
+import {PaymentsTable} from "../components/paymentsTable";
 
 const PaymentsPage: NextPage = () => {
     const statsInput = [
@@ -34,14 +29,33 @@ const PaymentsPage: NextPage = () => {
             color: "#505050"
         }
     ]
+    const categoriesInput = [
+        {
+            label: "Rent",
+            value: "$1700"
+        },
+        {
+            label: "Bill",
+            value: "$450"
+        },
+        {
+            label: "Subscriptions",
+            value: "$109"
+        },
+        {
+            label: "Insurance",
+            value: "$299"
+        },
+    ]
     return (
         <PageContainer title={"Payments"}>
-            <Space direction={"vertical"} style={{width: "100%"}}>
-                <Space style={{width: "100%", justifyContent: "flex-end"}}>
+            <Space size={"large"} direction={"vertical"} style={{width: "100%"}}>
+                <Space style={{width: "100%", justifyContent: "space-between"}}>
+                    {/*<PeriodSelector onPeriodSelectChange={() => null} />*/}
                     <Button icon={<UploadOutlined/>}>Add new</Button>
                 </Space>
                 <Stats values={statsInput}/>
-                <Categories/>
+                <Categories values={categoriesInput}/>
                 <PaymentsTable/>
             </Space>
         </PageContainer>

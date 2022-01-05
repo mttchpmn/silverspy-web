@@ -74,7 +74,7 @@ const TransactionsPage: NextPage = () => {
                 <Space style={{width: "100%", justifyContent: "space-between"}}>
                     {/* Transaction Date selection */}
                     <Space>
-                        <Radio.Group defaultValue={"Period"} onChange={e => setDateValue(e.target.value)}
+                        <Radio.Group defaultValue={"month"} onChange={e => setDateValue(e.target.value)}
                                      options={dateSelectionOptions} optionType={"button"} buttonStyle={"solid"}/>
                         {dateValue == "custom" &&
                             <RangePicker disabled format={"ddd, MMM do"} onChange={(range, x) => {
@@ -110,23 +110,6 @@ const TransactionsPage: NextPage = () => {
                         </Space>
                     </Space>
                 </div>
-
-                {/*<div>*/}
-                {/*    <Row>*/}
-                {/*        <Col span={8}>*/}
-                {/*            <Statistic title={"Total Incoming"} value={totalIncoming} prefix={"$"}*/}
-                {/*                       valueStyle={{color: "green"}}/>*/}
-                {/*        </Col>*/}
-                {/*        <Col span={8}>*/}
-                {/*            <Statistic title={"Total Outgoing"} value={totalOutgoing} prefix={"$"}*/}
-                {/*                       valueStyle={{color: "red"}}/>*/}
-                {/*        </Col>*/}
-                {/*        <Col span={8}>*/}
-                {/*            <Statistic title={"Net Position"} value={netPosition} prefix={"$"}*/}
-                {/*                       valueStyle={{color: "green"}}/>*/}
-                {/*        </Col>*/}
-                {/*    </Row>*/}
-                {/*</div>*/}
 
                 {/* Transaction Categories */}
                 <div>
