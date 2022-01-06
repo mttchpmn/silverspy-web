@@ -50,8 +50,7 @@ const PaymentsPage: NextPage = () => {
     return (
         <PageContainer title={"Payments"}>
             <Space size={"large"} direction={"vertical"} style={{width: "100%"}}>
-                <Space style={{width: "100%", justifyContent: "space-between"}}>
-                    {/*<PeriodSelector onPeriodSelectChange={() => null} />*/}
+                <Space style={{width: "100%", justifyContent: "flex-end"}}>
                     <Button icon={<UploadOutlined/>}>Add new</Button>
                 </Space>
                 <Stats values={statsInput}/>
