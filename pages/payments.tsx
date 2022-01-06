@@ -6,7 +6,7 @@ import {CalendarOutlined, LogoutOutlined, UploadOutlined} from "@ant-design/icon
 import {Stats} from "../components/Stats";
 import {Categories} from "../components/Categories";
 import {PeriodSelector} from "../components/PeriodSelector";
-import {PaymentsTable} from "../components/paymentsTable";
+import {PaymentsTable} from "../components/PaymentsTable";
 
 const PaymentsPage: NextPage = () => {
     const statsInput = [

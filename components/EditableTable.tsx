@@ -48,7 +48,7 @@ const EditableCell = ({
     );
 };
 
-interface Column {
+export interface Column {
     title: string;
     dataIndex: string;
     key: string;
