@@ -6,6 +6,7 @@ import {PageContainer} from "../components/PageContainer";
 import {Button, Carousel, Layout, Space, Typography} from "antd";
 import {useUser} from "@auth0/nextjs-auth0";
 import {useRouter} from "next/router";
+import {LoginOutlined} from "@ant-design/icons";
 
 const {Header, Content, Footer} = Layout;
 const {Title, Text} = Typography;
@@ -20,6 +21,13 @@ const Home: NextPage = () => {
         background: '#364d79',
     };
 
+    const router = useRouter();
+
+    const {user, isLoading, error} = useUser();
+
+    if (isLoading) return <div>Loading...</div>
+    if (user) router.push("/dashboard")
+
     return (
         <Layout>
             <Header>
@@ -28,7 +36,7 @@ const Home: NextPage = () => {
                        <Title level={1} style={{color: "white"}}>Silverspy</Title>
                    </div>
                    <Space>
-                       <Button>Log In</Button>
+                       <Button icon={<LoginOutlined />} onClick={() => router.push("/api/auth/login")}>Log In</Button>
                    </Space>
                </Space>
             </Header>
