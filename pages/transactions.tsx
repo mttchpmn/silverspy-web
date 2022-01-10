@@ -16,6 +16,7 @@ import {
 } from "@ant-design/icons";
 import {ImportTransactionModal} from "../components/ImportTransactionModal";
 import {withPageAuthRequired} from "@auth0/nextjs-auth0";
+import axios from "axios";
 
 const {Title, Text} = Typography;
 const {RangePicker} = DatePicker;
