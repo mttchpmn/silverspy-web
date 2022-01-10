@@ -7,15 +7,15 @@ const {Option} = Select;
 
 export function ImportTransactionModal(props: { visible: boolean, onOk: () => void }) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [bank, setBank]= useState<string>("");
-    const [fileContent, setFileContent] = useState<string>("");
+    const [bankType, setBankType]= useState<string>("");
+    const [csvData, setCsvData] = useState<string>("");
 
     const handleSubmit = () => {
         setIsLoading(true);
         axios.post("/api/import-transactions",
             {
-                bank,
-                fileContent
+                bankType: bankType.toUpperCase(),
+                csvData
             })
             .then(({data}) => {
                 console.log({data});
@@ -39,7 +39,7 @@ export function ImportTransactionModal(props: { visible: boolean, onOk: () => vo
                 <Space style={{width: "100%", justifyContent: "space-between"}}>
                     <Text>Select your bank</Text>
                     {/* TODO - Extract these into constants file*/}
-                    <Select onSelect={x => setBank("asb")} defaultValue={"asb"} style={{width: 120}}>
+                    <Select onSelect={x => setBankType("asb")} defaultValue={"asb"} style={{width: 120}}>
                         <Option value={"asb"}>ASB</Option>
                         <Option disabled value={"anz"}>ANZ</Option>
                         <Option disabled value={"bnz"}>BNZ</Option>
@@ -55,7 +55,7 @@ export function ImportTransactionModal(props: { visible: boolean, onOk: () => vo
                         beforeUpload={(file: any) => {
                             const reader = new FileReader();
                             reader.onload = e => {
-                                setFileContent(e.target!.result as string);
+                                setCsvData(e.target!.result as string);
                             }
 
                             reader.readAsText(file);

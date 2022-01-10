@@ -10,6 +10,7 @@ type TransactionTableProps = {
 }
 
 export const TransactionsTable = ({transactionData, onRowUpdate}: TransactionTableProps) => {
+    console.log({transactionData})
     const columns = [
         {
             title: "Date",
@@ -23,6 +24,7 @@ export const TransactionsTable = ({transactionData, onRowUpdate}: TransactionTab
             dataIndex: "type",
             key: "type",
             width: "10%",
+            render: (x: number) => x > 0 ? "CREDIT" : "DEBIT"
         },
         {
             title: "Category",
@@ -39,9 +41,9 @@ export const TransactionsTable = ({transactionData, onRowUpdate}: TransactionTab
             // width: "10%"
         },
         {
-            title: "Amount",
-            dataIndex: "amount",
-            key: "amount",
+            title: "Value",
+            dataIndex: "value",
+            key: "value",
             width: "20%",
             render: (x: number) => `$${x}`
         },
