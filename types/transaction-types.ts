@@ -5,12 +5,14 @@ export type Transaction = {
     type: string;
     reference: string;
     description: string;
-    amount: number;
+    value: number;
+    category: string;
+    details: string;
 }
 
 export type CategoryTotal = {
-    name: string;
-    total: number;
+    category: string;
+    value: number;
 }
 
 export type TransactionData = {

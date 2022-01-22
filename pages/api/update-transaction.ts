@@ -6,26 +6,21 @@ import axios from "axios";
 
 async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<TransactionData>
+    res: NextApiResponse<any>
 ) {
-    const { from, to } = req.query;
     const { accessToken } = await getAccessToken(req, res);
 
-    const { data } = await axios.get("http://localhost:5224/transactions", {
+    console.log({ body: req.body });
+
+    const { data } = await axios.patch("http://localhost:5224/transactions", req.body, {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
     })
-    const { transactions, categoryTotals, totalIncoming, totalOutgoing, netPosition } = data;
 
-    console.log({ transactions, categoryTotals });
 
     res.status(200).json({
-        transactions,
-        categoryTotals,
-        totalIncoming,
-        totalOutgoing,
-        netPosition
+        data
     })
 }
 
