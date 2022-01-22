@@ -9,8 +9,8 @@ export type Transaction = {
 }
 
 export type CategoryTotal = {
-    name: string;
-    total: number;
+    category: string;
+    value: number;
 }
 
 export type TransactionData = {
