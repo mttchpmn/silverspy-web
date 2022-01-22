@@ -6,17 +6,19 @@ import {
   UpCircleOutlined,
   DownCircleOutlined,
 } from "@ant-design/icons";
-import { Button, Drawer, Input, Space, Table } from "antd";
+import { Button, Drawer, Input, message, Space, Table } from "antd";
 import { ReactElement, useState } from "react";
 
 type TransactionTableProps = {
   transactionData: Transaction[];
   onRowUpdate: (row: Transaction) => Promise<boolean>;
+  refreshData: () => void;
 };
 
 export const TransactionsTable = ({
   transactionData,
   onRowUpdate,
+  refreshData,
 }: TransactionTableProps) => {
   console.log({ transactionData });
 
@@ -55,13 +57,14 @@ export const TransactionsTable = ({
       title: "Details",
       dataIndex: "details",
       key: "details",
-      render: (val, record) => (val ? val : <em>{record.description}</em>),
+      // render: (val, record) => (val ? val : <em>{record.description}</em>),
     },
-    // {
-    //   title: "Description",
-    //   dataIndex: "description",
-    //   key: "description",
-    // },
+    {
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
+      render: (val) => <em style={{ color: "#909090" }}>{val}</em>,
+    },
     {
       title: "Value",
       dataIndex: "value",
@@ -92,7 +95,13 @@ export const TransactionsTable = ({
       details,
     };
 
-    await onRowUpdate(newTransaction as Transaction);
+    const result = await onRowUpdate(newTransaction as Transaction);
+
+    setCategory("");
+    setDetails("");
+    setIsDrawerOpen(false);
+    message.success("Transaction updated successfully");
+    refreshData();
   };
 
   return (
@@ -105,6 +114,7 @@ export const TransactionsTable = ({
         visible={isDrawerOpen}
       >
         <Space direction={"vertical"}>
+          {/* TODO - Prefill inputs with values from active transaction */}
           <Input
             value={category}
             onChange={(e) => setCategory(e.target.value)}

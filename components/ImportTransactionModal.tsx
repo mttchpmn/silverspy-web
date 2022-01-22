@@ -14,10 +14,15 @@ import axios from "axios";
 const { Text } = Typography;
 const { Option } = Select;
 
-export function ImportTransactionModal(props: {
+type ImportTransactionModalProps = {
   visible: boolean;
   onOk: () => void;
-}) {
+};
+
+export function ImportTransactionModal({
+  visible,
+  onOk,
+}: ImportTransactionModalProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [bankType, setBankType] = useState<string>("");
   const [csvData, setCsvData] = useState<string>("");
@@ -32,19 +37,18 @@ export function ImportTransactionModal(props: {
       .then(({ data }) => {
         console.log({ data });
         setIsLoading(false);
-        props.onOk();
+        onOk();
         message.success("Transactions imported successfully");
-        window.location.reload(); // TODO - Do this properly, LOL
       });
   };
 
   return (
     <Modal
       title={"Import Transactions"}
-      visible={props.visible}
+      visible={visible}
       okText={"Import"}
       onOk={() => handleSubmit()}
-      onCancel={props.onOk}
+      onCancel={onOk}
       confirmLoading={isLoading}
     >
       <Space direction={"vertical"} style={{ width: "100%" }}>

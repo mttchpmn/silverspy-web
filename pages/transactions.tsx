@@ -36,7 +36,7 @@ const TransactionsPage: NextPage = () => {
 
   const [importModalVisible, setImportModalVisible] = useState<boolean>(false);
 
-  const { transactionData, isLoading, hasError } = useTransactions(
+  const { transactionData, refreshData, isLoading, hasError } = useTransactions(
     fromDate.toISOString(),
     toDate.toISOString()
   );
@@ -120,7 +120,10 @@ const TransactionsPage: NextPage = () => {
             </Button>
             <ImportTransactionModal
               visible={importModalVisible}
-              onOk={() => setImportModalVisible(false)}
+              onOk={() => {
+                setImportModalVisible(false);
+                refreshData();
+              }}
             />
             <Button disabled icon={<DownloadOutlined />}>
               Export
@@ -183,19 +186,13 @@ const TransactionsPage: NextPage = () => {
             onRowUpdate={(row: Transaction) => {
               console.log({ row });
 
-              axios
-                .post("api/update-transaction", {
-                  transactionId: row.id,
-                  category: row.category,
-                  details: row.details,
-                })
-                .then(({ data }) => {
-                  console.log({ data });
-                  message.success("Transaction updated successfully");
-                  // window.location.reload(); // TODO - Do this properly, LOL
-                });
-              return Promise.resolve(true);
+              return axios.post("api/update-transaction", {
+                transactionId: row.id,
+                category: row.category,
+                details: row.details,
+              });
             }}
+            refreshData={refreshData}
           />
         </div>
       </Space>
