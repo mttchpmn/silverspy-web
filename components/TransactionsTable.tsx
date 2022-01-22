@@ -6,7 +6,15 @@ import {
   UpCircleOutlined,
   DownCircleOutlined,
 } from "@ant-design/icons";
-import { Button, Drawer, Input, message, Space, Table } from "antd";
+import {
+  Button,
+  Descriptions,
+  Drawer,
+  Input,
+  message,
+  Space,
+  Table,
+} from "antd";
 import { ReactElement, useState } from "react";
 
 type TransactionTableProps = {
@@ -63,7 +71,7 @@ export const TransactionsTable = ({
       title: "Description",
       dataIndex: "description",
       key: "description",
-      render: (val) => <em style={{ color: "#909090" }}>{val}</em>,
+      render: (val: any) => <em style={{ color: "#909090" }}>{val}</em>,
     },
     {
       title: "Value",
@@ -115,6 +123,20 @@ export const TransactionsTable = ({
       >
         <Space direction={"vertical"}>
           {/* TODO - Prefill inputs with values from active transaction */}
+          <Descriptions bordered column={1} size={"small"}>
+            <Descriptions.Item label={"Date"}>
+              {moment(activeTransaction?.transactionDate).format("ddd MMM Do")}
+            </Descriptions.Item>
+            <Descriptions.Item label={"Type"}>
+              {activeTransaction?.type === 1 ? "CREDIT" : "DEBIT"}
+            </Descriptions.Item>
+            <Descriptions.Item label={"Description"}>
+              {activeTransaction?.description}
+            </Descriptions.Item>
+            <Descriptions.Item label={"Value"}>
+              ${activeTransaction?.value}
+            </Descriptions.Item>
+          </Descriptions>
           <Input
             value={category}
             onChange={(e) => setCategory(e.target.value)}
