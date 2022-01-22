@@ -16,16 +16,16 @@ async function handler(
             Authorization: `Bearer ${accessToken}`
         }
     })
-    const { transactions, categoryTotals } = data;
+    const { transactions, categoryTotals, totalIncoming, totalOutgoing, netPosition } = data;
 
     console.log({ transactions, categoryTotals });
 
     res.status(200).json({
         transactions,
         categoryTotals,
-        totalIncoming: 6179,
-        totalOutgoing: 3179,
-        netPosition: 3000
+        totalIncoming,
+        totalOutgoing,
+        netPosition
     })
 }
 

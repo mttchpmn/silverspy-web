@@ -17,14 +17,12 @@ import { CategoryTotal } from "../types/transaction-types";
 import {
   DownloadOutlined,
   FallOutlined,
-  FundOutlined,
   RiseOutlined,
   StockOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
 import { ImportTransactionModal } from "../components/ImportTransactionModal";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
-import axios from "axios";
 
 const { Title, Text } = Typography;
 const { RangePicker } = DatePicker;
