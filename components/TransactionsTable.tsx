@@ -89,6 +89,8 @@ export const TransactionsTable = ({
         <EditOutlined
           onClick={() => {
             setActiveTransaction(record);
+            setCategory(activeTransaction?.category ?? "");
+            setDetails(activeTransaction?.details ?? "");
             setIsDrawerOpen(true);
           }}
         />
