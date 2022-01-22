@@ -6,6 +6,8 @@ export type Transaction = {
     reference: string;
     description: string;
     value: number;
+    category: string;
+    details: string;
 }
 
 export type CategoryTotal = {

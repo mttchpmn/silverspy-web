@@ -6,12 +6,12 @@ import {
   UpCircleOutlined,
   DownCircleOutlined,
 } from "@ant-design/icons";
-import { Table } from "antd";
-import { ReactElement } from "react";
+import { Button, Drawer, Input, Space, Table } from "antd";
+import { ReactElement, useState } from "react";
 
 type TransactionTableProps = {
   transactionData: Transaction[];
-  onRowUpdate: (row: any) => Promise<boolean>;
+  onRowUpdate: (row: Transaction) => Promise<boolean>;
 };
 
 export const TransactionsTable = ({
@@ -19,6 +19,12 @@ export const TransactionsTable = ({
   onRowUpdate,
 }: TransactionTableProps) => {
   console.log({ transactionData });
+
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+  const [activeTransaction, setActiveTransaction] = useState<Transaction>();
+  const [category, setCategory] = useState<string>("");
+  const [details, setDetails] = useState<string>("");
+
   const columns = [
     {
       title: "Date",
@@ -69,13 +75,58 @@ export const TransactionsTable = ({
       key: "edit",
       width: "5%",
       render: (_: any, record: any): ReactElement => (
-        <EditOutlined onClick={() => console.log("EDIT")} />
+        <EditOutlined
+          onClick={() => {
+            setActiveTransaction(record);
+            setIsDrawerOpen(true);
+          }}
+        />
       ),
     },
   ];
 
+  const updateTransaction = async () => {
+    const newTransaction = {
+      ...activeTransaction,
+      category,
+      details,
+    };
+
+    await onRowUpdate(newTransaction as Transaction);
+  };
+
   return (
     <div>
+      {/* Edit Transaction Drawer */}
+      <Drawer
+        title={"Edit Transaction"}
+        placement={"right"}
+        onClose={() => setIsDrawerOpen(false)}
+        visible={isDrawerOpen}
+      >
+        <Space direction={"vertical"}>
+          <Input
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            placeholder="Transaction category"
+          />
+          <Input
+            value={details}
+            onChange={(e) => setDetails(e.target.value)}
+            placeholder="Transaction details"
+          />
+
+          {/* Update / Cancel buttons */}
+          <Space>
+            <Button type={"primary"} onClick={updateTransaction}>
+              Update
+            </Button>
+            <Button onClick={() => setIsDrawerOpen(false)}>Cancel</Button>
+          </Space>
+        </Space>
+      </Drawer>
+
+      {/* Transaction Table */}
       <Table
         bordered
         size={"small"}

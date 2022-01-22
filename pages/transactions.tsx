@@ -4,6 +4,7 @@ import {
   Button,
   DatePicker,
   Descriptions,
+  message,
   Radio,
   Space,
   Statistic,
@@ -13,7 +14,7 @@ import { TransactionsTable } from "../components/TransactionsTable";
 import { useTransactions } from "../hooks/useTransactions";
 import { useState } from "react";
 import moment, { Moment } from "moment";
-import { CategoryTotal } from "../types/transaction-types";
+import { CategoryTotal, Transaction } from "../types/transaction-types";
 import {
   DownloadOutlined,
   FallOutlined,
@@ -23,6 +24,7 @@ import {
 } from "@ant-design/icons";
 import { ImportTransactionModal } from "../components/ImportTransactionModal";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import axios from "axios";
 
 const { Title, Text } = Typography;
 const { RangePicker } = DatePicker;
@@ -178,7 +180,22 @@ const TransactionsPage: NextPage = () => {
           <Title level={3}>Transactions</Title>
           <TransactionsTable
             transactionData={transactions}
-            onRowUpdate={() => Promise.resolve(true)}
+            onRowUpdate={(row: Transaction) => {
+              console.log({ row });
+
+              axios
+                .post("api/update-transaction", {
+                  transactionId: row.id,
+                  category: row.category,
+                  details: row.details,
+                })
+                .then(({ data }) => {
+                  console.log({ data });
+                  message.success("Transaction updated successfully");
+                  // window.location.reload(); // TODO - Do this properly, LOL
+                });
+              return Promise.resolve(true);
+            }}
           />
         </div>
       </Space>
