@@ -47,19 +47,19 @@ export const TransactionsTable = ({
       title: "Type",
       dataIndex: "type",
       key: "type",
-      width: "5%",
+      width: "7%",
       render: (x: number) =>
         x === 1 ? (
-          <UpCircleOutlined style={{ color: "green" }} />
+          <div style={{color: "green"}}><UpCircleOutlined style={{ color: "green" }} />  CREDIT</div>
         ) : (
-          <DownCircleOutlined style={{ color: "red" }} />
+          <div style={{color: "red"}}><DownCircleOutlined style={{ color: "red" }} />  DEBIT</div>
         ),
     },
     {
       title: "Category",
       dataIndex: "category",
       key: "category",
-      width: "10%",
+      width: "8%",
     },
     {
       title: "Details",
