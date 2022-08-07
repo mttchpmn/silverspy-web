@@ -19,12 +19,18 @@ async function handler(
         }
     })
 
+    console.log({ data, "foo": "bar" })
 
-    const { payments } = data;
+
+    const { payments, monthlyIncoming, monthlyOutgoing, monthlyNet, categoryTotals } = data;
 
 
     res.status(200).json({
         payments,
+        monthlyIncoming,
+        monthlyOutgoing,
+        monthlyNet,
+        categoryTotals
     })
 }
 

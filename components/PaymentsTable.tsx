@@ -21,8 +21,8 @@ export function PaymentsTable({ payments }: PaymentsTableProps) {
     },
     {
       title: "Type",
-      key: "paymentType",
-      dataIndex: "paymentType",
+      key: "type",
+      dataIndex: "type",
     },
     {
       title: "Frequency",

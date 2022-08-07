@@ -3,9 +3,10 @@ import { PageContainer } from "../components/PageContainer";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { Button, Space } from "antd";
 import {
-  CalendarOutlined,
-  LogoutOutlined,
+  GoldOutlined,
+  DownloadOutlined,
   UploadOutlined,
+  DollarCircleOutlined,
 } from "@ant-design/icons";
 import { Stats } from "../components/Stats";
 import { Categories } from "../components/Categories";
@@ -25,45 +26,46 @@ const PaymentsPage: NextPage = () => {
 
   if (isLoading) return <PageContainer title={""}>Loading...</PageContainer>;
 
-  const { payments } = paymentData;
-  console.log({ payments });
+  const {
+    payments,
+    monthlyIncoming,
+    monthlyOutgoing,
+    monthlyNet,
+    categoryTotals,
+  } = paymentData;
+
+  console.log({
+    payments,
+    monthlyIncoming,
+    monthlyOutgoing,
+    monthlyNet,
+    categoryTotals,
+  });
 
   const statsInput = [
     {
-      label: "Total payments",
-      value: "49",
-      icon: <LogoutOutlined />,
+      label: "Total Monthly Payments",
+      value: monthlyNet.count,
+      icon: <GoldOutlined />,
       color: "#505050",
     },
     {
-      label: "Monthly Cost",
-      value: "$670",
-      icon: <CalendarOutlined />,
+      label: "Net Monthly Incoming",
+      value: "$" + monthlyIncoming.total,
+      icon: <DownloadOutlined />,
       color: "#505050",
     },
     {
-      label: "Yearly Cost",
-      value: "$14789",
-      icon: <CalendarOutlined />,
+      label: "Net Monthly Outgoing",
+      value: "$" + monthlyOutgoing.total,
+      icon: <UploadOutlined />,
       color: "#505050",
     },
-  ];
-  const categoriesInput = [
     {
-      label: "Rent",
-      value: "$1700",
-    },
-    {
-      label: "Bill",
-      value: "$450",
-    },
-    {
-      label: "Subscriptions",
-      value: "$109",
-    },
-    {
-      label: "Insurance",
-      value: "$299",
+      label: "Net Monthly Position",
+      value: "$" + monthlyNet.total,
+      icon: <DollarCircleOutlined />,
+      color: "#505050",
     },
   ];
 
@@ -74,7 +76,7 @@ const PaymentsPage: NextPage = () => {
           <Button icon={<UploadOutlined />}>Add new</Button>
         </Space>
         <Stats values={statsInput} />
-        <Categories values={categoriesInput} />
+        <Categories values={categoryTotals} />
         <PaymentsTable payments={payments} />
       </Space>
     </PageContainer>
