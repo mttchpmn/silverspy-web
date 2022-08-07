@@ -41,7 +41,12 @@ const TransactionsPage: NextPage = () => {
     toDate.toISOString()
   );
 
-  if (hasError) return <div>ERROR</div>;
+  if (hasError)
+    return (
+      <div>
+        <h1>An Error Occurred</h1>
+      </div>
+    );
   if (isLoading) return <PageContainer title={""}>Loading...</PageContainer>;
 
   const {
