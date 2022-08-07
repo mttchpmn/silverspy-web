@@ -7,14 +7,18 @@ import {
   DownloadOutlined,
   UploadOutlined,
   DollarCircleOutlined,
+  PlusCircleOutlined,
 } from "@ant-design/icons";
 import { Stats } from "../components/Stats";
 import { Categories } from "../components/Categories";
 import { PeriodSelector } from "../components/PeriodSelector";
 import { PaymentsTable } from "../components/PaymentsTable";
 import { usePayments } from "../hooks/usePayments";
+import { AddPaymentModal } from "../components/AddPaymentModal";
+import { useState } from "react";
 
 const PaymentsPage: NextPage = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const { paymentData, refreshData, isLoading, hasError } = usePayments();
 
   if (hasError)
@@ -72,11 +76,22 @@ const PaymentsPage: NextPage = () => {
   return (
     <PageContainer title={"Payments"}>
       <Space size={"large"} direction={"vertical"} style={{ width: "100%" }}>
+        <AddPaymentModal
+          visible={isModalVisible}
+          onOk={() => setIsModalVisible(false)}
+        />
         <Space style={{ width: "100%", justifyContent: "flex-end" }}>
-          <Button icon={<UploadOutlined />}>Add new</Button>
+          <Button
+            icon={<PlusCircleOutlined />}
+            onClick={() => setIsModalVisible(true)}
+          >
+            Add new
+          </Button>
         </Space>
+
         <Stats values={statsInput} />
         <Categories values={categoryTotals} />
+
         <PaymentsTable payments={payments} />
       </Space>
     </PageContainer>

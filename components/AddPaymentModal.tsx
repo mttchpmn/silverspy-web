@@ -30,7 +30,7 @@ export function AddPaymentModal({ visible, onOk }: AddPaymentModalProps) {
   const [category, setCategory] = useState<string>("");
   const [details, setDetails] = useState<string>("");
   const [value, setValue] = useState<number>(0);
-  const [refDate, setRefDate] = useState<string>("");
+  const [referenceDate, setReferenceDate] = useState<string>("");
 
   const handleSubmit = () => {
     const payload = {
@@ -40,7 +40,7 @@ export function AddPaymentModal({ visible, onOk }: AddPaymentModalProps) {
       category,
       details,
       value,
-      refDate,
+      referenceDate,
     };
 
     console.log({ payload });
@@ -122,7 +122,7 @@ export function AddPaymentModal({ visible, onOk }: AddPaymentModalProps) {
         <Space style={{ width: "100%", justifyContent: "space-between" }}>
           <Text>Reference Date*</Text>
           <DatePicker
-            onChange={(x) => setRefDate(x?.toISOString()!)}
+            onChange={(x) => setReferenceDate(x?.toISOString()!)}
             style={{ width: 300 }}
           />
         </Space>
