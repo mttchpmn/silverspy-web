@@ -55,19 +55,19 @@ const PaymentsPage: NextPage = () => {
     },
     {
       label: "Net Monthly Incoming",
-      value: "$" + monthlyIncoming.total,
+      value: "$" + monthlyIncoming?.total,
       icon: <DownloadOutlined />,
       color: "#505050",
     },
     {
       label: "Net Monthly Outgoing",
-      value: "$" + monthlyOutgoing.total,
+      value: "$" + monthlyOutgoing?.total,
       icon: <UploadOutlined />,
       color: "#505050",
     },
     {
       label: "Net Monthly Position",
-      value: "$" + monthlyNet.total,
+      value: "$" + monthlyNet?.total, // TODO - Fix
       icon: <DollarCircleOutlined />,
       color: "#505050",
     },

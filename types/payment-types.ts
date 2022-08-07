@@ -10,6 +10,14 @@ export type Payment = {
 	value: number;
 }
 
+export type PaymentWithDates = Payment & {
+	paymentDates: string[];
+}
+
+export type PaymentWithDate = Payment & {
+	paymentDate: string;
+}
+
 export type PaymentSummary = {
 	count: number;
 	total: number;
@@ -26,4 +34,8 @@ export type PaymentData = {
 	monthlyOutgoing: PaymentSummary;
 	monthlyNet: PaymentSummary;
 	categoryTotals: CategoryTotal[];
+}
+
+export type PaymentSummaryData = {
+	payments: PaymentWithDates[];
 }
