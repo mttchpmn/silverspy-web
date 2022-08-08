@@ -19,9 +19,10 @@ const { Option } = Select;
 type AddPaymentModalProps = {
   visible: boolean;
   onOk: () => void;
+  refreshData: () => void;
 };
 
-export function AddPaymentModal({ visible, onOk }: AddPaymentModalProps) {
+export function AddPaymentModal({ visible, onOk, refreshData }: AddPaymentModalProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [name, setName] = useState<string>("");
@@ -50,6 +51,7 @@ export function AddPaymentModal({ visible, onOk }: AddPaymentModalProps) {
       setIsLoading(false);
       onOk();
       message.success("Payment added successfully");
+      refreshData();
     });
   };
 
