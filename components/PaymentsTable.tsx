@@ -1,8 +1,9 @@
-import {Button, DatePicker, Typography, Drawer, Input, InputNumber, Space, Table, message} from "antd";
+import {Button, DatePicker, Typography, Drawer, Input, InputNumber, Space, Table, message, Popconfirm} from "antd";
 import moment from "moment/moment";
 import {ReactElement, useState} from "react";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {Payment} from "../types/payment-types";
+import axios from "axios";
 
 const {Text} = Typography;
 
@@ -23,6 +24,11 @@ export function PaymentsTable({payments, onPaymentUpdate, refreshData}: Payments
     const [category, setCategory] = useState("");
     const [details, setDetails] = useState("");
     const [value, setValue] = useState(0);
+
+    const deletePayment = async (id: number) => {
+        await axios.post('/api/delete-payment', {paymentId: id});
+        refreshData();
+    }
 
     const columns = [
         {
@@ -86,7 +92,9 @@ export function PaymentsTable({payments, onPaymentUpdate, refreshData}: Payments
                             setIsDrawerOpen(true);
                         }}
                     />
-                    <DeleteOutlined />
+                    <Popconfirm title={"Delete?"} placement={"left"} onConfirm={() => deletePayment(record.id)}>
+                        <DeleteOutlined href={"#"}/>
+                    </Popconfirm>
                 </Space>
             ),
         },

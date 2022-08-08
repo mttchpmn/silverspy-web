@@ -14,7 +14,7 @@ export function Categories({ values }: CategoriesProps) {
       <Descriptions bordered column={5} size={"small"}>
         {values.map((c) => (
           <Descriptions.Item key={c.category} label={c.category}>
-            {c.total}
+            ${c.total}
           </Descriptions.Item>
         ))}
       </Descriptions>

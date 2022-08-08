@@ -1,7 +1,7 @@
 import {NextPage} from "next";
 import {PageContainer} from "../components/PageContainer";
 import {withPageAuthRequired} from "@auth0/nextjs-auth0";
-import {Button, Space} from "antd";
+import {Button, Space, Typography} from "antd";
 import {
     GoldOutlined,
     DownloadOutlined,
@@ -17,6 +17,8 @@ import {usePayments} from "../hooks/usePayments";
 import {AddPaymentModal} from "../components/AddPaymentModal";
 import {useState} from "react";
 import axios from "axios";
+
+const {Title} = Typography;
 
 const PaymentsPage: NextPage = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -55,22 +57,22 @@ const PaymentsPage: NextPage = () => {
             color: "#505050",
         },
         {
-            label: "Net Monthly Incoming",
+            label: "Total Monthly Incoming",
             value: "$" + monthlyIncoming?.total,
             icon: <DownloadOutlined/>,
-            color: "#505050",
+            color: "green",
         },
         {
-            label: "Net Monthly Outgoing",
+            label: "Total Monthly Outgoing",
             value: "$" + monthlyOutgoing?.total,
             icon: <UploadOutlined/>,
-            color: "#505050",
+            color: "red",
         },
         {
             label: "Net Monthly Position",
             value: "$" + monthlyNet?.total, // TODO - Fix
             icon: <DollarCircleOutlined/>,
-            color: "#505050",
+            color: monthlyNet.total > 0 ? "green" : "red",
         },
     ];
 
@@ -94,6 +96,7 @@ const PaymentsPage: NextPage = () => {
                 <Stats values={statsInput}/>
                 <Categories values={categoryTotals}/>
 
+                <Title level={3}>All Payments</Title>
                 <PaymentsTable payments={payments} refreshData={refreshData}
                                onPaymentUpdate={(payload) => axios.post('/api/update-payment', payload)}/>
             </Space>
