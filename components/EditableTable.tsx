@@ -134,12 +134,10 @@ export const EditableTable = <T extends unknown>({columns, inputData, onRowUpdat
                     dataSource={data}
                     columns={mergedColumns}
                     rowClassName="editable-row"
-                    expandable={{
-                        expandedRowRender: record => <p>Processed Date: {record.processedDate};
-                            Reference: {record.reference}</p>
-                    }}
                     pagination={{
                         onChange: cancel,
+                        defaultPageSize: 100,
+                        hideOnSinglePage: true
                     }}
                 />
             </Form>

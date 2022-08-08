@@ -9,7 +9,6 @@ async function handler(
     req: NextApiRequest,
     res: NextApiResponse<PaymentData>
 ) {
-    const { from, to } = req.query;
     const { accessToken } = await getAccessToken(req, res);
 
     // TODO - Pull API endpoint into variable
@@ -18,9 +17,6 @@ async function handler(
             Authorization: `Bearer ${accessToken}`
         }
     })
-
-    console.log({ data, "foo": "bar" })
-
 
     const { payments, monthlyIncoming, monthlyOutgoing, monthlyNet, categoryTotals } = data;
 

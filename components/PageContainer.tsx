@@ -20,8 +20,6 @@ export const PageContainer = ({title, children}) => {
     const [collapsed, setCollapsed] = useState(false);
     const router = useRouter();
 
-    console.log({foo: router.pathname})
-
     return (
         <Layout style={{minHeight: '100vh'}}>
             <Sider collapsible collapsed={collapsed} onCollapse={() => setCollapsed(x => !x)}>
