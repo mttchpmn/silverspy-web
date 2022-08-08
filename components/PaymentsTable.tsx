@@ -130,7 +130,7 @@ export function PaymentsTable({payments, onPaymentUpdate, refreshData}: Payments
                             <Text>Reference Date</Text>
                             <DatePicker
                                 defaultValue={moment(referenceDate)}
-                                onChange={(x, y) => setReferenceDate(y)}
+                                onChange={(x, y) => setReferenceDate(x!.toISOString())}
                             />
                         </Space>
                         <Space style={{width: "100%", justifyContent: "space-between"}}>
