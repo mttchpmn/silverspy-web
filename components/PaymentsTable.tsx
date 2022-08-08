@@ -1,7 +1,7 @@
 import {Button, DatePicker, Typography, Drawer, Input, InputNumber, Space, Table, message} from "antd";
 import moment from "moment/moment";
 import {ReactElement, useState} from "react";
-import {EditOutlined} from "@ant-design/icons";
+import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {Payment} from "../types/payment-types";
 
 const {Text} = Typography;
@@ -64,26 +64,30 @@ export function PaymentsTable({payments, onPaymentUpdate, refreshData}: Payments
             render: (val: string) => "$" + val,
         },
         {
-            title: "Edit",
+            title: "",
             dataIndex: "edit",
             key: "edit",
             width: "5%",
             render: (_: any, record: Payment): ReactElement => (
-                <EditOutlined
-                    onClick={() => {
-                        console.log({record})
-                        setSelectedPayment(record);
-                        setName(record.name);
-                        setReferenceDate(record.referenceDate);
-                        setType(record.type);
-                        setFrequency(record.frequency);
-                        setCategory(record.category);
-                        setDetails(record.details);
-                        setValue(record.value);
+                <Space style={{width: "100%", justifyContent: "space-between"}}>
 
-                        setIsDrawerOpen(true);
-                    }}
-                />
+                    <EditOutlined
+                        onClick={() => {
+                            console.log({record})
+                            setSelectedPayment(record);
+                            setName(record.name);
+                            setReferenceDate(record.referenceDate);
+                            setType(record.type);
+                            setFrequency(record.frequency);
+                            setCategory(record.category);
+                            setDetails(record.details);
+                            setValue(record.value);
+
+                            setIsDrawerOpen(true);
+                        }}
+                    />
+                    <DeleteOutlined />
+                </Space>
             ),
         },
     ];
