@@ -1,4 +1,16 @@
-import {Button, DatePicker, Typography, Drawer, Input, InputNumber, Space, Table, message, Popconfirm} from "antd";
+import {
+    Button,
+    DatePicker,
+    Typography,
+    Drawer,
+    Input,
+    InputNumber,
+    Space,
+    Table,
+    message,
+    Popconfirm,
+    Select,
+} from "antd";
 import moment from "moment/moment";
 import {ReactElement, useState} from "react";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
@@ -6,6 +18,7 @@ import {Payment} from "../types/payment-types";
 import axios from "axios";
 
 const {Text} = Typography;
+const {Option} = Select;
 
 type PaymentsTableProps = {
     payments: Payment[];
@@ -136,6 +149,7 @@ export function PaymentsTable({payments, onPaymentUpdate, refreshData}: Payments
                             <Input
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
+                                style={{ width: 200 }}
                             />
                         </Space>
                         <Space style={{width: "100%", justifyContent: "space-between"}}>
@@ -143,27 +157,39 @@ export function PaymentsTable({payments, onPaymentUpdate, refreshData}: Payments
                             <DatePicker
                                 defaultValue={moment(referenceDate)}
                                 onChange={(x, y) => setReferenceDate(x!.toISOString())}
+                                style={{ width: 200 }}
                             />
                         </Space>
                         <Space style={{width: "100%", justifyContent: "space-between"}}>
                             <Text>Type</Text>
-                            <Input
-                                value={type}
-                                onChange={(e) => setType(e.target.value)}
-                            />
+                            <Select
+                                onChange={(x) => setType(x)}
+                                defaultValue={"OUTGOING"}
+                                style={{ width: 200 }}
+                            >
+                                <Option value={"INCOMING"}>Incoming</Option>
+                                <Option value={"OUTGOING"}>Outgoing</Option>
+                            </Select>
                         </Space>
                         <Space style={{width: "100%", justifyContent: "space-between"}}>
                             <Text>Frequency</Text>
-                            <Input
-                                value={frequency}
-                                onChange={(e) => setFrequency(e.target.value)}
-                            />
+                            <Select
+                                onChange={(x) => setFrequency(x)}
+                                defaultValue={"MONTHLY"}
+                                style={{width: 200}}
+                            >
+                                <Option value={"WEEKLY"}>Weekly</Option>
+                                <Option value={"FORTNIGHTLY"}>Fortnightly</Option>
+                                <Option value={"MONTHLY"}>Monthly</Option>
+                                <Option value={"YEARLY"}>Yearly</Option>
+                            </Select>
                         </Space>
                         <Space style={{width: "100%", justifyContent: "space-between"}}>
                             <Text>Category</Text>
                             <Input
                                 value={category}
                                 onChange={(e) => setCategory(e.target.value)}
+                                style={{ width: 200 }}
                             />
                         </Space>
                         <Space style={{width: "100%", justifyContent: "space-between"}}>
@@ -171,6 +197,7 @@ export function PaymentsTable({payments, onPaymentUpdate, refreshData}: Payments
                             <Input
                                 value={details}
                                 onChange={(e) => setDetails(e.target.value)}
+                                style={{ width: 200 }}
                             />
                         </Space>
                         <Space style={{width: "100%", justifyContent: "space-between"}}>
@@ -178,6 +205,7 @@ export function PaymentsTable({payments, onPaymentUpdate, refreshData}: Payments
                             <InputNumber
                                 value={value}
                                 onChange={(e) => setValue(e)}
+                                style={{ width: 200 }}
                             />
                         </Space>
                     </Space>
