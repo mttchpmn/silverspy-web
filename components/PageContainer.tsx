@@ -11,6 +11,9 @@ import {
 import Link from 'next/link';
 import {useRouter} from "next/router";
 
+import logo from '../public/logo-white.png';
+import Image from "next/image";
+
 const {Title} = Typography;
 const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
@@ -23,9 +26,12 @@ export const PageContainer = ({title, children}) => {
     return (
         <Layout style={{minHeight: '100vh'}}>
             <Sider collapsible collapsed={collapsed} onCollapse={() => setCollapsed(x => !x)}>
-                <div className="logo">
-                    <Title style={{color: "white"}}>Silverspy</Title>
-                </div>
+                <Space direction={"vertical"} align={"center"} style={{width: "100%"}}>
+                    <Image alt={"Silverspy logo"} src={logo} height={150} width={150}/>
+                    {!collapsed && (
+                        <Title style={{color: "white"}}>Silverspy</Title>
+                    )}
+                </Space>
                 <Divider/>
                 <Menu theme="dark" defaultSelectedKeys={[router.pathname]} mode="inline">
                     <Menu.Item key="/dashboard" icon={<AreaChartOutlined/>}>
@@ -54,7 +60,8 @@ export const PageContainer = ({title, children}) => {
                 {/*<Header style={{backgroundColor: "#f0f2f5"}}><Title level={2}>{title}</Title></Header>*/}
                 <Header style={{backgroundColor: "#f0f2f5"}}>
                     <Space style={{width: "100%", justifyContent: "flex-end"}}>
-                        <Button icon={<LogoutOutlined />} onClick={() => router.push("/api/auth/logout")}>Log Out</Button>
+                        <Button icon={<LogoutOutlined/>} onClick={() => router.push("/api/auth/logout")}>Log
+                            Out</Button>
                     </Space>
                 </Header>
                 <Content style={{margin: '2rem 1rem'}}>
