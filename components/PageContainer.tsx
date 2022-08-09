@@ -54,16 +54,21 @@ export const PageContainer = ({title, children}) => {
                             <a>Settings</a>
                         </Link>
                     </Menu.Item>
+                    <Menu.Item key="logout" icon={<LogoutOutlined/>}>
+                        <Link href={"/api/auth/logout"}>
+                            <a>Log Out</a>
+                        </Link>
+                    </Menu.Item>
                 </Menu>
             </Sider>
             <Layout className="site-layout">
                 {/*<Header style={{backgroundColor: "#f0f2f5"}}><Title level={2}>{title}</Title></Header>*/}
-                <Header style={{backgroundColor: "#f0f2f5"}}>
-                    <Space style={{width: "100%", justifyContent: "flex-end"}}>
-                        <Button icon={<LogoutOutlined/>} onClick={() => router.push("/api/auth/logout")}>Log
-                            Out</Button>
-                    </Space>
-                </Header>
+                {/*<Header style={{backgroundColor: "#f0f2f5"}}>*/}
+                {/*    <Space style={{width: "100%", justifyContent: "flex-end"}}>*/}
+                {/*        <Button icon={<LogoutOutlined/>} onClick={() => router.push("/api/auth/logout")}>Log*/}
+                {/*            Out</Button>*/}
+                {/*    </Space>*/}
+                {/*</Header>*/}
                 <Content style={{margin: '2rem 1rem'}}>
                     <Title level={2}>{title}</Title>
                     {children}

@@ -50,12 +50,6 @@ export function PaymentsTable({payments, onPaymentUpdate, refreshData}: Payments
             dataIndex: "name",
         },
         {
-            title: "Reference Date",
-            dataIndex: "referenceDate",
-            key: "referenceDate",
-            render: (date: string) => moment(date).format("ddd MMM Do yyyy"),
-        },
-        {
             title: "Type",
             key: "type",
             dataIndex: "type",
