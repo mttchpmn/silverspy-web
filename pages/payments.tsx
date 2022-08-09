@@ -50,17 +50,29 @@ const PaymentsPage: NextPage = () => {
     });
 
     const statsInput = [
+        // {
+        //     label: "Total Monthly Payments",
+        //     value: monthlyNet.count,
+        //     icon: <GoldOutlined/>,
+        //     color: "#505050",
+        // },
         {
-            label: "Total Monthly Payments",
-            value: monthlyNet.count,
-            icon: <GoldOutlined/>,
-            color: "#505050",
+            label: "Number Monthly Incoming",
+            value: monthlyIncoming?.count,
+            icon: <DownloadOutlined/>,
+            color: "green",
         },
         {
             label: "Total Monthly Incoming",
             value: "$" + monthlyIncoming?.total,
             icon: <DownloadOutlined/>,
             color: "green",
+        },
+        {
+            label: "Number Monthly Outgoing",
+            value: monthlyOutgoing?.count,
+            icon: <UploadOutlined/>,
+            color: "red",
         },
         {
             label: "Total Monthly Outgoing",
@@ -84,7 +96,12 @@ const PaymentsPage: NextPage = () => {
                     onOk={() => setIsModalVisible(false)}
                     refreshData={refreshData}
                 />
-                <Space style={{width: "100%", justifyContent: "flex-end"}}>
+
+                <Stats values={statsInput}/>
+                <Categories values={categoryTotals}/>
+
+                <Space style={{width: "100%", justifyContent: "space-between"}}>
+                    <Title level={3}>All Payments</Title>
                     <Button
                         icon={<PlusCircleOutlined/>}
                         onClick={() => setIsModalVisible(true)}
@@ -92,11 +109,6 @@ const PaymentsPage: NextPage = () => {
                         Add new
                     </Button>
                 </Space>
-
-                <Stats values={statsInput}/>
-                <Categories values={categoryTotals}/>
-
-                <Title level={3}>All Payments</Title>
                 <PaymentsTable payments={payments} refreshData={refreshData}
                                onPaymentUpdate={(payload) => axios.post('/api/update-payment', payload)}/>
             </Space>
